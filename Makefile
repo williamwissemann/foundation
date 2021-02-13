@@ -3,9 +3,8 @@
 # python command links to the appropriate virtual environment Python.
 
 MAKEFLAGS += --no-print-directory
-PROJECT = foundation
-IMAGE_TAG = dev
-PYTHON ?= python3
+
+PYTHON ?= python3.8
 
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
@@ -22,31 +21,38 @@ PYTHON ?= python3
 help:
 	@grep "^# help\:" Makefile | grep -v grep | sed 's/\# help\: //' | sed 's/\# help\://'
 
-# help: venv_setup                     - sets up a venv environment from scratch
-.PHONY: venv_setup
-venv_setup: venv_delete venv_create
-
-# help: venv_create                    - create a virtual environment for development
-.PHONY: venv_create
-venv_create: 
+# help: 
+# help: ----- setup environment -----
+# help: venv                           - create a virtual environment for development
+venv:
 	@$(PYTHON) -m venv venv
 	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt"
 	@echo "\nEnter virtual environment using: \n\t$ source venv/bin/activate\n"
+
+# help: venv_setup                     - sets up a venv environment from scratch
+.PHONY: venv_setup
+venv_setup: venv_delete venv
 
 # help: venv_delete                    - deletes the virtual environment for development
 .PHONY: venv_delete
 venv_delete:
 	@rm -fr venv
 
-# help: new_project                    - create a new package using cookiecutter
-new_project: 
+# help: 
+# help: ----- project management -----
+# help: new_package                    - create a new package via cookiecutter
+new_package: 
 	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./packages ./artifacts/cookiecutter/template/ 
+	@echo "\nThe new package can be found in : \n\t$ ./packages"
 
-# help: 
-# help:                                ---- Raw Commands ---
-# help: 
+# Keep these lines at the end of the file to retain nice help
+# output formatting.
+# help:
+
 
 ## ----- in progress ------
+PROJECT = foundation
+IMAGE_TAG = dev
 build:
 	docker build -t ${PROJECT}:${IMAGE_TAG} .
 
@@ -57,7 +63,3 @@ run:
 # housekeeping:
 #	docker rmi $(docker images -a -q)
 #	docker system prune -a
-
-# Keep these lines at the end of the file to retain nice help
-# output formatting.
-# help:

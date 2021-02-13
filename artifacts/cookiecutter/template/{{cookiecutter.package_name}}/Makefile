@@ -4,6 +4,8 @@
 
 MAKEFLAGS += --no-print-directory
 
+PYTHON=python3.8
+
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
 # help:
@@ -16,13 +18,10 @@ help:
 	@grep "^# help\:" Makefile | grep -v grep | sed 's/\# help\: //' | sed 's/\# help\://'
 
 # help: venv                           - create a virtual environment for development
-.PHONY: venv
 venv:
-	@rm -Rf venv
-	@python3 -m venv venv --prompt {{cookiecutter.package_name}}
+	@$(PYTHON) -m venv venv
 	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt && pip install -e ."
-	@echo "Enter virtual environment using:\n\n\t$ source venv/bin/activate\n"
-
+	@echo "\nEnter virtual environment using: \n\t$ source venv/bin/activate\n"
 
 # help: clean                          - clean all files using .gitignore rules
 .PHONY: clean
@@ -35,18 +34,26 @@ clean:
 scrub:
 	git clean -x -f -d
 
-
 # help: test                           - run tests
 .PHONY: test
-test:
-	@python -m unittest discover -s tests
-
+test: venv lint
+	. venv/bin/activate; pytest \
+		--cov=src \
+		--cov-report html \
+		tests \
+		-r w \
+		--cov-fail-under 0 
 
 # help: test-verbose                   - run tests [verbosely]
 .PHONY: test-verbose
 test-verbose:
-	@python -m unittest discover -s tests -v
-
+	. venv/bin/activate; pytest \
+		--cov=src \
+		--cov-report html \
+		tests \
+		-r w \
+		--cov-fail-under 0 
+		-vvs
 
 # help: coverage                       - perform test coverage checks
 .PHONY: coverage
@@ -55,7 +62,6 @@ coverage:
 	@PYTHONPATH=src coverage run -m unittest discover -s tests -v
 	@coverage html
 	@coverage report
-
 
 # help: format                         - perform code style format
 .PHONY: format
@@ -94,13 +100,13 @@ check-style: check-sort-imports check-format
 # help: check-types                    - check type hint annotations
 .PHONY: check-types
 check-types:
-	@cd src; mypy -p {{cookiecutter.package_name}} --ignore-missing-imports
+	@. venv/bin/activate; cd src; mypy -p {{cookiecutter.package_name}} --ignore-missing-imports
 
 
 # help: check-lint                     - run static analysis checks
 .PHONY: check-lint
 check-lint:
-	@pylint --rcfile=.pylintrc {{cookiecutter.package_name}} ./tests setup.py ./examples
+	. venv/bin/activate; $(PYTHON) -m flake8 src/
 
 
 # help: check-static-analysis          - check code style compliance

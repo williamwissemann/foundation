@@ -8,7 +8,8 @@ regexp = re.compile(r'.*__version__ = [\'\"](.*?)[\'\"]', re.S)
 base_package = '{{cookiecutter.package_name}}'
 base_path = os.path.dirname(__file__)
 
-init_file = os.path.join(base_path, 'src', '{{cookiecutter.package_name}}', '__init__.py')
+init_file = os.path.join(
+    base_path, 'src', '{{cookiecutter.package_name}}', '__init__.py')
 with open(init_file, 'r') as f:
     module_content = f.read()
 
@@ -25,6 +26,7 @@ with open('README.rst', 'r') as f:
 with open('CHANGELOG.rst', 'r') as f:
     changes = f.read()
 
+
 def parse_requirements(filename):
     ''' Load requirements from a pip requirements file '''
     with open(filename, 'r') as fd:
@@ -34,6 +36,7 @@ def parse_requirements(filename):
             if line and not line.startswith("#"):
                 lines.append(line)
     return lines
+
 
 requirements = parse_requirements('requirements.txt')
 
@@ -46,18 +49,17 @@ if __name__ == '__main__':
         license='{{cookiecutter.license}}',
         url='https://github.com/{{cookiecutter.github_user_name}}/{{cookiecutter.github_repo_name}}',
         version=version,
-        author='{{cookiecutter.full_name}}',
-        author_email='{{cookiecutter.email}}',
+        author='William T. Wissemann',
+        author_email='WilliamWissemann@gmail.com',
         maintainer='{{cookiecutter.full_name}}',
         maintainer_email='{{cookiecutter.email}}',
         install_requires=requirements,
         keywords=['{{cookiecutter.package_name}}'],
         package_dir={'': 'src'},
         packages=find_packages('src'),
+        namespace_packages=['foundation'],
         zip_safe=False,
         classifiers=['Development Status :: 3 - Alpha',
                      'Intended Audience :: Developers',
-                     'Programming Language :: Python :: 3.6',
-                     'Programming Language :: Python :: 3.7',
                      'Programming Language :: Python :: 3.8']
     )
