@@ -1,0 +1,30 @@
+-r requirements.txt
+black
+coverage
+isort
+mypy
+sphinx
+twine
+wheel
+pytest
+pytest-cov
+
+# https://github.com/DmytroLitvinov/awesome-flake8-extensions
+flake8
+flake8-builtins
+flake8-print
+flake8-eradicate
+flake8-fixme
+flake8-commas
+flake8-return
+flake8-requirements
+flake8-spellcheck
+flake8-expression-complexity
+pep8-naming
+flake8-docstrings
+flake8-aaa
+flake8-assertive
+flake8-mock
+flake8-pytest
+Dlint
+flake8-bandit
