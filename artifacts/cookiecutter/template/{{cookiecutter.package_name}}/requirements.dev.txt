@@ -6,6 +6,7 @@ mypy
 sphinx
 twine
 wheel
+pytest
 
 # https://github.com/DmytroLitvinov/awesome-flake8-extensions
 flake8

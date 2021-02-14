@@ -35,9 +35,10 @@ scrub:
 	git clean -x -f -d
 
 # help: test                           - run tests
-.PHONY: test
-test: venv lint
+.PHONY: test 
+test: venv check-lint
 	. venv/bin/activate; pytest \
+	    src
 		--cov=src \
 		--cov-report html \
 		tests \
@@ -48,6 +49,7 @@ test: venv lint
 .PHONY: test-verbose
 test-verbose:
 	. venv/bin/activate; pytest \
+	    src
 		--cov=src \
 		--cov-report html \
 		tests \
@@ -66,25 +68,25 @@ coverage:
 # help: format                         - perform code style format
 .PHONY: format
 format:
-	@black src/{{cookiecutter.package_name}} tests examples
+	@. venv/bin/activate; black src/{{cookiecutter.package_name}} tests examples
 
 
 # help: check-format                   - check code format compliance
 .PHONY: check-format
 check-format:
-	@black --check src/{{cookiecutter.package_name}} tests examples
+	@. venv/bin/activate; black --check src/{{cookiecutter.package_name}} tests examples
 
 
 # help: sort-imports                   - apply import sort ordering
 .PHONY: sort-imports
 sort-imports:
-	@isort . --profile black
+	@. venv/bin/activate; isort . --profile black
 
 
 # help: check-sort-imports             - check imports are sorted
 .PHONY: check-sort-imports
 check-sort-imports:
-	@isort . --check-only --profile black
+	@. venv/bin/activate; isort . --check-only --profile black
 
 
 # help: style                          - perform code style format
@@ -117,20 +119,20 @@ check-static-analysis: check-lint check-types
 # help: docs                           - generate project documentation
 .PHONY: docs
 docs: coverage
-	@cd docs; rm -rf source/api/{{cookiecutter.package_name}}*.rst source/api/modules.rst build/*
-	@cd docs; make html
+	@. venv/bin/activate; cd docs; rm -rf source/api/{{cookiecutter.package_name}}*.rst source/api/modules.rst build/*
+	@. venv/bin/activate; cd docs; make html
 
 
 # help: check-docs                     - quick check docs consistency
 .PHONY: check-docs
 check-docs:
-	@cd docs; make dummy
+	@. venv/bin/activate; cd docs; make dummy
 
 
 # help: serve-docs                     - serve project html documentation
 .PHONY: serve-docs
 serve-docs:
-	@cd docs/build; python -m http.server --bind 127.0.0.1
+	@. venv/bin/activate; cd docs/build; python -m http.server --bind 127.0.0.1
 
 
 # help: dist                           - create a wheel distribution package

@@ -1,10 +1,10 @@
-# --- foundation_image ---------------------------------------------------------------
-FROM ubuntu:20.04 as foundation_image
+# --- module_image ---------------------------------------------------------------
+FROM ubuntu:20.04 as module_image
 ## --- configure default environment -------------------------------------------------
 LABEL maintainer="William T. Wissemann (WilliamWissemann@gmail.com)"
 # --- configure default environment --------------------------------------------------
 ARG DEBIAN_FRONTEND=noninteractive 
-ENV HOMEDIR /opt/app/foundation/
+ENV HOMEDIR /opt/app/module/
 # --- configure dependencies ---------------------------------------------------------
 RUN apt-get update \
     && apt-get upgrade -y \

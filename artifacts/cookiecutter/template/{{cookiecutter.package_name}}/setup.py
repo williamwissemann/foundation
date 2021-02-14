@@ -57,7 +57,6 @@ if __name__ == '__main__':
         keywords=['{{cookiecutter.package_name}}'],
         package_dir={'': 'src'},
         packages=find_packages('src'),
-        namespace_packages=['foundation'],
         zip_safe=False,
         classifiers=['Development Status :: 3 - Alpha',
                      'Intended Audience :: Developers',

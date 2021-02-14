@@ -8,12 +8,12 @@ PYTHON ?= python3.8
 
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
-# help:   ______                    _       _   _             
-# help:  |  ____|                  | |     | | (_)            
-# help:  | |__ ___  _   _ _ __   __| | __ _| |_ _  ___  _ __  
-# help:  |  __/ _ \| | | | '_ \ / _` |/ _` | __| |/ _ \| '_ \ 
-# help:  | | | (_) | |_| | | | | (_| | (_| | |_| | (_) | | | |
-# help:  |_|  \___/ \__,_|_| |_|\__,_|\__,_|\__|_|\___/|_| |_|
+# help:  __  __           _       _        ____        _ _     _           
+# help: |  \/  |         | |     | |      |  _ \      (_) |   | |          
+# help: | \  / | ___   __| |_   _| | ___  | |_) |_   _ _| | __| | ___ _ __ 
+# help: | |\/| |/ _ \ / _` | | | | |/ _ \ |  _ <| | | | | |/ _` |/ _ \ '__|
+# help: | |  | | (_) | (_| | |_| | |  __/ | |_) | |_| | | | (_| |  __/ |   
+# help: |_|  |_|\___/ \__,_|\__,_|_|\___| |____/ \__,_|_|_|\__,_|\___|_|                                                                    
 # help:                                                      
 
 # help: help                           - display this makefile's help information
@@ -40,10 +40,15 @@ venv_delete:
 
 # help: 
 # help: ----- project management -----
-# help: new_package                    - create a new package via cookiecutter
-new_package: 
-	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./packages ./artifacts/cookiecutter/template/ 
-	@echo "\nThe new package can be found in : \n\t$ ./packages"
+# help: new_module                   - create a new module via cookiecutter
+new_module: 
+	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./modules ./artifacts/cookiecutter/template/ 
+	@echo "\nThe new package can be found in : \n\t$ ./modules"
+
+# help: update_module                 - update a module via cookiecutter
+update_module:
+	@. venv/bin/activate; $(PYTHON) -m cookiecutter --overwrite-if-exists --output-dir ./modules ./artifacts/cookiecutter/template/ 
+
 
 # Keep these lines at the end of the file to retain nice help
 # output formatting.
@@ -51,7 +56,7 @@ new_package:
 
 
 ## ----- in progress ------
-PROJECT = foundation
+PROJECT = module
 IMAGE_TAG = dev
 build:
 	docker build -t ${PROJECT}:${IMAGE_TAG} .
