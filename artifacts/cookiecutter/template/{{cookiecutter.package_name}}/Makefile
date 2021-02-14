@@ -8,8 +8,14 @@ PYTHON=python3.8
 
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
-# help:
-# help: {{cookiecutter.package_display_name}} Makefile help
+# help:  __  __           _       _        ____        _ _     _           
+# help: |  \/  |         | |     | |      |  _ \      (_) |   | |          
+# help: | \  / | ___   __| |_   _| | ___  | |_) |_   _ _| | __| | ___ _ __ 
+# help: | |\/| |/ _ \ / _` | | | | |/ _ \ |  _ <| | | | | |/ _` |/ _ \ '__|
+# help: | |  | | (_) | (_| | |_| | |  __/ | |_) | |_| | | | (_| |  __/ |   
+# help: |_|  |_|\___/ \__,_|\__,_|_|\___| |____/ \__,_|_|_|\__,_|\___|_|                                                                    
+# help:      
+# help: {{cookiecutter.package_display_name}} help
 # help:
 
 # help: help                           - display this makefile's help information

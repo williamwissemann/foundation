@@ -40,31 +40,16 @@ venv_delete:
 
 # help: 
 # help: ----- module management -----
-# help: new_module                     - create a new module via cookiecutter
-new_module: 
+# help: new                           - create a new module via cookiecutter
+new: 
 	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./modules ./artifacts/cookiecutter/template/ 
 	@echo "\nThe new package can be found in : \n\t$ ./modules"
 
-# help: update_module                  - update a module via cookiecutter
-update_module:
+# help: reset                         - [DANGEROUS] runs cookiecutter with --overwrite-if-exists
+reset:
 	@. venv/bin/activate; $(PYTHON) -m cookiecutter --overwrite-if-exists --output-dir ./modules ./artifacts/cookiecutter/template/ 
 
 
 # Keep these lines at the end of the file to retain nice help
 # output formatting.
 # help:
-
-
-## ----- in progress ------
-PROJECT = module
-IMAGE_TAG = dev
-build:
-	docker build -t ${PROJECT}:${IMAGE_TAG} .
-
-run: 
-	docker run -it ${PROJECT}:${IMAGE_TAG} bash
-	# ${python}
-
-# housekeeping:
-#	docker rmi $(docker images -a -q)
-#	docker system prune -a
