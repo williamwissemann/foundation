@@ -39,13 +39,13 @@ venv_delete:
 	@rm -fr venv
 
 # help: 
-# help: ----- project management -----
-# help: new_module                   - create a new module via cookiecutter
+# help: ----- module management -----
+# help: new_module                     - create a new module via cookiecutter
 new_module: 
 	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./modules ./artifacts/cookiecutter/template/ 
 	@echo "\nThe new package can be found in : \n\t$ ./modules"
 
-# help: update_module                 - update a module via cookiecutter
+# help: update_module                  - update a module via cookiecutter
 update_module:
 	@. venv/bin/activate; $(PYTHON) -m cookiecutter --overwrite-if-exists --output-dir ./modules ./artifacts/cookiecutter/template/ 
 

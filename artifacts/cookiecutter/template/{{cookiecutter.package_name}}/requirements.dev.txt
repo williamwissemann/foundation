@@ -7,6 +7,7 @@ sphinx
 twine
 wheel
 pytest
+pytest-cov
 
 # https://github.com/DmytroLitvinov/awesome-flake8-extensions
 flake8
@@ -25,3 +26,5 @@ flake8-aaa
 flake8-assertive
 flake8-mock
 flake8-pytest
+Dlint
+flake8-bandit

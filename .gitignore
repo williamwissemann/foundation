@@ -45,7 +45,6 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
-.pytest_cache/
 
 # Translations
 *.mo
@@ -53,6 +52,8 @@ coverage.xml
 
 # Django stuff:
 *.log
+.static_storage/
+.media/
 local_settings.py
 db.sqlite3
 
@@ -64,7 +65,9 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+*/*/docs/_build/*
+*/*/docs/build/*
+*/*/docs/source/api/*
 
 # PyBuilder
 target/
@@ -102,3 +105,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# VSCode
+.vscode/

@@ -32,15 +32,15 @@ clean:
 # help: scrub                          - clean all files, even untracked files
 .PHONY: scrub
 scrub:
-	git clean -x -f -d
+	@git clean -x -f -d
 
 # help: test                           - run tests
 .PHONY: test 
 test: venv check-lint
-	. venv/bin/activate; pytest \
-	    src
+	@. venv/bin/activate; pytest \
 		--cov=src \
 		--cov-report html \
+		--cov-report term \
 		tests \
 		-r w \
 		--cov-fail-under 0 
@@ -48,10 +48,10 @@ test: venv check-lint
 # help: test-verbose                   - run tests [verbosely]
 .PHONY: test-verbose
 test-verbose:
-	. venv/bin/activate; pytest \
-	    src
+	@. venv/bin/activate; pytest \
 		--cov=src \
 		--cov-report html \
+		--cov-report term \
 		tests \
 		-r w \
 		--cov-fail-under 0 
@@ -60,10 +60,10 @@ test-verbose:
 # help: coverage                       - perform test coverage checks
 .PHONY: coverage
 coverage:
-	@coverage erase
-	@PYTHONPATH=src coverage run -m unittest discover -s tests -v
-	@coverage html
-	@coverage report
+	@. venv/bin/activate; coverage erase
+	@. venv/bin/activate; PYTHONPATH=src coverage run -m unittest discover -s tests -v
+	@. venv/bin/activate; coverage html
+	@. venv/bin/activate; coverage report
 
 # help: format                         - perform code style format
 .PHONY: format
@@ -139,13 +139,6 @@ serve-docs:
 .PHONY: dist
 dist:
 	@python setup.py bdist_wheel
-
-
-# help: dist-test                      - test a whell distribution package
-.PHONY: dist-test
-dist-test: dist
-	@cd dist && ../tests/test-dist.bash ./{{cookiecutter.package_name}}-*-py3-none-any.whl
-
 
 # help: dist-upload                    - upload a wheel distribution package
 .PHONY: dist-upload
