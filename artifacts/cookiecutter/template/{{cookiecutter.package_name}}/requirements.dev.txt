@@ -9,6 +9,5 @@ mypy
 sphinx
 twine
 wheel
-
 pytest
 pytest-cov
