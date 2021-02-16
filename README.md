@@ -1,3 +1,5 @@
+# Module Builder
+
 ```
  __  __           _       _        ____        _ _     _           
 |  \/  |         | |     | |      |  _ \      (_) |   | |          
@@ -17,4 +19,15 @@ new                           - create a new module via cookiecutter
 reset                         - [DANGEROUS] runs cookiecutter with --overwrite-if-exists
 ```
 
-https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html
+build requirments: make, sed python3.8, virtualenv
+
+about: https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html
+
+todo:
+[] Can make file point at artificats folder for dynamic loading
+
+[] How would running test over every folder work
+[] update pacakge helper to resync with templete
+[] make step that mimicks all the test steps
+
+[] cleanup readme
