@@ -1,6 +1,6 @@
 -r requirements.local.txt
--r requirements.flake8.txt
 -r requirements.txt
+-r requirements.flake8.txt
 
 black
 coverage
