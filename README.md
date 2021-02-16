@@ -26,11 +26,6 @@ about: https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular
 todo:
 [] Can make file point at artificats folder for dynamic loading
 
-[] How do we support a version pin
-[] - Can we merge requirments.txt and requirments.local.txt
-[] - have requirments.txt resolve it and setup parse it
-[] - ../../package_name # 3.9.47
-
 [] How would running test over every folder work
 [] update pacakge helper to resync with templete
 [] make step that mimicks all the test steps
