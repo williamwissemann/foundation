@@ -1,0 +1,2 @@
+# path to local packages
+# i.e ../../modules/module_folder
