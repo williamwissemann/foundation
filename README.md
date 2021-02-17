@@ -63,7 +63,7 @@ TODO: add more info
 * requirments.txt
 * setup.py
 
-|NOTE: For local package importing across packages the folder name in *./packages* has to mach the package name.
+|NOTE: For local package resolution to work the folder name in *./packages* **has** to match the package name in setup.py in that folder.
 |---|
 
 TODO: add more info (i.e version pining in comments)
