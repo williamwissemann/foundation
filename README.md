@@ -37,6 +37,18 @@ TODO: add more info
 | |  | |/ ____ \| |\  |/ ____ | |__| | |____| | \ \
 |_|  |_/_/    \_|_| \_/_/    \_\_____|______|_|  \_\
                                                      
+help                           - display this makefile's help information
+
+----- setup environment -----
+venv                           - create a virtual environment for development
+venv_setup                     - sets up a venv environment from scratch
+venv_delete                    - deletes the virtual environment for development
+
+----- module management -----
+new                           - create a new module via cookiecutter
+reset                         - [DANGEROUS] runs cookiecutter with --overwrite-if-exists
+```
+
 ### make venv
 
 TODO: add more info
