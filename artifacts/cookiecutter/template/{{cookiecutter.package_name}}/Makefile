@@ -34,11 +34,18 @@ venv:
 	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt && pip install -e ."
 	@echo "\nEnter virtual environment using: \n\t$ source venv/bin/activate\n"
 
+# help: activate                       - enter the virtual environment
+activate:
+	@. venv/bin/activate
+
+# help: deactivate                      - exit the virtual environment
+deactivate:
+	@deactivate
+
 # help: clean                          - clean all files using .gitignore rules
 .PHONY: clean
 clean:
 	@git clean -X -f -d
-
 
 # help: scrub                          - clean all files, even untracked files
 .PHONY: scrub

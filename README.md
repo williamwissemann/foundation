@@ -57,7 +57,7 @@ TODO: add more info
 
 TODO: add more info
 
-### package version importing and managment 
+### package version importing and managment
 
 * requirments.local.txt
 * requirments.txt

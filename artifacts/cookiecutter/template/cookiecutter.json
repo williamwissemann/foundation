@@ -6,7 +6,7 @@
   "full_name": "William T. Wissemann",
   "email": "WilliamWissemann@gmail.com",
   "github_user_name": "williamwissemann",
-  "github_repo_name": "module",
+  "github_repo_name": "foundation",
   "license": "Not open source",
   "year": "{% now 'utc', '%Y' %}",
   "_extensions": ["jinja2_time.TimeExtension"]
