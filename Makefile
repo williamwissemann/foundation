@@ -8,12 +8,17 @@ PYTHON ?= python3.8
 
 # Do not remove this block. It is used by the 'help' rule when
 # constructing the help output.
-# help:  __  __           _       _        ____        _ _     _           
-# help: |  \/  |         | |     | |      |  _ \      (_) |   | |          
-# help: | \  / | ___   __| |_   _| | ___  | |_) |_   _ _| | __| | ___ _ __ 
-# help: | |\/| |/ _ \ / _` | | | | |/ _ \ |  _ <| | | | | |/ _` |/ _ \ '__|
-# help: | |  | | (_) | (_| | |_| | |  __/ | |_) | |_| | | | (_| |  __/ |   
-# help: |_|  |_|\___/ \__,_|\__,_|_|\___| |____/ \__,_|_|_|\__,_|\___|_|                                                                    
+# help:    _____        _____ _  __         _____ ______    
+# help:   |  __ \ /\   / ____| |/ /   /\   / ____|  ____|   
+# help:   | |__) /  \ | |    | ' /   /  \ | |  __| |__      
+# help:   |  ___/ /\ \| |    |  <   / /\ \| | |_ |  __|     
+# help:   | |  / ____ | |____| . \ / ____ | |__| | |____    
+# help:  _|_|_/_/    \_\_____|_|\_/_/   _\_\_____|______|_  
+# help: |  \/  |   /\   | \ | |   /\   / ____|  ____|  __ \ 
+# help: | \  / |  /  \  |  \| |  /  \ | |  __| |__  | |__) |
+# help: | |\/| | / /\ \ | . ` | / /\ \| | |_ |  __| |  _  / 
+# help: | |  | |/ ____ \| |\  |/ ____ | |__| | |____| | \ \ 
+# help: |_|  |_/_/    \_|_| \_/_/    \_\_____|______|_|  \_\                       
 # help:                                                      
 
 # help: help                           - display this makefile's help information
@@ -39,15 +44,15 @@ venv_delete:
 	@rm -fr venv
 
 # help: 
-# help: ----- module management -----
-# help: new                           - create a new module via cookiecutter
+# help: ----- package management -----
+# help: new                           - create a new package via cookiecutter
 new: 
-	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./modules ./artifacts/cookiecutter/template/ 
-	@echo "\nThe new package can be found in : \n\t$ ./modules"
+	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./packages ./artifacts/cookiecutter/template/ 
+	@echo "\nThe new package can be found in : \n\t$ ./packages"
 
 # help: reset                         - [DANGEROUS] runs cookiecutter with --overwrite-if-exists
 reset:
-	@. venv/bin/activate; $(PYTHON) -m cookiecutter --overwrite-if-exists --output-dir ./modules ./artifacts/cookiecutter/template/ 
+	@. venv/bin/activate; $(PYTHON) -m cookiecutter --overwrite-if-exists --output-dir ./packages ./artifacts/cookiecutter/template/ 
 
 
 # Keep these lines at the end of the file to retain nice help

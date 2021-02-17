@@ -1,12 +1,42 @@
-# Module Builder
+# Package Builder
 
-```
- __  __           _       _        ____        _ _     _           
-|  \/  |         | |     | |      |  _ \      (_) |   | |          
-| \  / | ___   __| |_   _| | ___  | |_) |_   _ _| | __| | ___ _ __ 
-| |\/| |/ _ \ / _` | | | | |/ _ \ |  _ <| | | | | |/ _` |/ _ \ '__|
-| |  | | (_) | (_| | |_| | |  __/ | |_) | |_| | | | (_| |  __/ |   
-|_|  |_|\___/ \__,_|\__,_|_|\___| |____/ \__,_|_|_|\__,_|\___|_|  
+Package Builder is utility to support building & maintaining small python projects.
+
+> One key solution to managing complexity of large software is modular programming: the code is composed of many different code modules that are developed separately. - [Link](https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html)
+
+**The benefits of [modular programming](https://www.keil.com/support/man/docs/a251/a251_in_modular.htm) are:**
+
+* Efficient Program Development
+* Multiple Use of Subprograms
+* Ease of Debugging and Modifying
+
+## Installation
+
+**requirments:**
+
+* make
+* sed
+* python3.8
+* virtualenv
+
+TODO: add more info
+
+## Usage
+
+```text
+> make help
+   _____        _____ _  __         _____ ______    
+  |  __ \ /\   / ____| |/ /   /\   / ____|  ____|
+  | |__) /  \ | |    | ' /   /  \ | |  __| |__
+  |  ___/ /\ \| |    |  <   / /\ \| | |_ |  __|
+  | |  / ____ | |____| . \ / ____ | |__| | |____    
+ _|_|_/_/    \_\_____|_|\_/_/   _\_\_____|______|_
+|  \/  |   /\   | \ | |   /\   / ____|  ____|  __ \
+| \  / |  /  \  |  \| |  /  \ | |  __| |__  | |__) |
+| |\/| | / /\ \ | . ` | / /\ \| | |_ |  __| |  _  /
+| |  | |/ ____ \| |\  |/ ____ | |__| | |____| | \ \
+|_|  |_/_/    \_|_| \_/_/    \_\_____|______|_|  \_\
+                                                     
 help                           - display this makefile's help information
 
 ----- setup environment -----
@@ -19,20 +49,29 @@ new                           - create a new module via cookiecutter
 reset                         - [DANGEROUS] runs cookiecutter with --overwrite-if-exists
 ```
 
-build requirments: make, sed python3.8, virtualenv
+### make venv
 
-about: https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html
+TODO: add more info
 
-todo:
-[] Can make file point at artificats folder for dynamic loading
+### make new
 
-[] How do we support a version pin
-[] - Can we merge requirments.txt and requirments.local.txt
-[] - have requirments.txt resolve it and setup parse it
-[] - ../../package_name # 3.9.47
+TODO: add more info
 
-[] How would running test over every folder work
-[] update pacakge helper to resync with templete
-[] make step that mimicks all the test steps
+### package version importing and managment 
 
-[] cleanup readme
+* requirments.local.txt
+* requirments.txt
+* setup.py
+
+|NOTE: For local package importing across packages the folder name in *./packages* has to mach the package name.
+|---|
+
+TODO: add more info (i.e version pining in comments)
+
+## TODO
+
+* [ ] Add option to run tests for all projects in *./packages*
+* [ ] Add a make command the mimics a pipeline to the cookiecutter templete
+* [ ] Add a Dockerize step to makefile in cookiecutter templete
+* [ ] Create a update pacakge helper to resync with templete
+* [ ] cleanup readme
