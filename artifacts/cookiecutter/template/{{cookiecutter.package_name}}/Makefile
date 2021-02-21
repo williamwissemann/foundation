@@ -38,8 +38,8 @@ venv:
 activate:
 	@. venv/bin/activate
 
-# help: deactivate                      - exit the virtual environment
-deactivate:
+# help: exit                      - exit the virtual environment
+exit:
 	@deactivate
 
 # help: clean                          - clean all files using .gitignore rules
