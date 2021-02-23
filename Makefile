@@ -34,14 +34,18 @@ venv:
 	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt"
 	@echo "\nEnter virtual environment using: \n\t$ source venv/bin/activate\n"
 
-# help: venv_setup                     - sets up a venv environment from scratch
-.PHONY: venv_setup
-venv_setup: venv_delete venv
-
-# help: venv_delete                    - deletes the virtual environment for development
-.PHONY: venv_delete
-venv_delete:
-	@rm -fr venv
+# help: clean                          - clean up the venv and python cache files
+.PHONY: clean
+clean:
+	@rm -rf venv
+	@rm -rf .coverage
+	@rm -rf src/*.egg-info
+	@rm -rf htmlcov
+	@rm -rf docs/_build/
+	@rm -rf docs/build/
+	@rm -rf docs/source/api/
+	@find . -type f -name '*.pyc' -delete
+	@find . -empty -type d -delete
 
 # help: 
 # help: ----- package management -----
