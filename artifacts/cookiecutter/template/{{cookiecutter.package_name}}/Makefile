@@ -44,6 +44,7 @@ clean:
 	@rm -rf docs/_build/
 	@rm -rf docs/build/
 	@rm -rf docs/source/api/
+	@rm -rf .pytest_cache
 	@find . -type f -name '*.pyc' -delete
 	@find . -empty -type d -delete
 	@echo "\nClean up based on .gitignore rules:\n"
@@ -70,7 +71,7 @@ test-verbose:
 		--cov-report term \
 		tests \
 		-r w \
-		--cov-fail-under 0 
+		--cov-fail-under 0 \
 		-vvs
 
 # help: coverage                       - perform test coverage checks
