@@ -55,6 +55,8 @@ TODO: add more info
 
 ### make new
 
+|NOTE: Don't use special characters (i.e `-`) in package names stick to (a-z and _). Using special charcaters can lead to a bunch of import issues and pain.
+|---|
 TODO: add more info
 
 ### package version importing and managment
