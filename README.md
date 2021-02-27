@@ -77,3 +77,5 @@ TODO: add more info (i.e version pining in comments)
 * [ ] Add a Dockerize step to makefile in cookiecutter templete
 * [ ] Create a update pacakge helper to resync with templete
 * [ ] cleanup readme
+* [ ] Dockerfile / running code in venv
+* [ ] vscode docker?? https://code.visualstudio.com/docs/containers/debug-common#_python
