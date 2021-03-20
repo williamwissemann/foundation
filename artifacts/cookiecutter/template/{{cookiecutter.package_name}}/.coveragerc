@@ -9,6 +9,7 @@ source =
     **/site-packages/{{cookiecutter.package_name}}
 
 [report]
+skip_empty = true
 exclude_lines =
     pragma: no cover
     def __repr__
