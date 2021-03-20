@@ -6,7 +6,7 @@ import re
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--make_list", nargs='*', action='append')
+    parser.add_argument("--make_list", nargs="*", action="append")
     args = parser.parse_args()
 
     available = {}
@@ -18,7 +18,7 @@ def main():
 
 def parse_makefile(makefile):
     available = {}
-    with open(makefile, 'r') as opened_file:
+    with open(makefile, "r") as opened_file:
         previous = ""
         for line in opened_file:
             if previous.startswith("##"):
@@ -49,7 +49,7 @@ def pretty_print(items):
             cmd += " "
         while len(desc) < 60:
             desc += " "
-        print(f'  \x1b[32;01m{cmd[0:35]}\x1b[0m {desc}')
+        print(f"  \x1b[32;01m{cmd[0:35]}\x1b[0m {desc}")
 
 
 if __name__ == "__main__":

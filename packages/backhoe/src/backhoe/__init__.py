@@ -2,4 +2,4 @@
 
 import importlib.metadata
 
-__version__ = importlib.metadata.version('backhoe')
+__version__ = importlib.metadata.version("backhoe")

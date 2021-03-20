@@ -7,9 +7,7 @@ import backhoe
 
 
 def main():
-    print(
-        f"backhoe version: {backhoe.__version__}"
-    )
+    print(f"backhoe version: {backhoe.__version__}")
 
 
 if __name__ == "__main__":

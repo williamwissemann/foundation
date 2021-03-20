@@ -88,10 +88,10 @@ python/check-sort-imports:
 	@. venv/bin/activate; isort . --check-only --profile black
 
 ## Perform code style format
-python/style: sort-imports format
+python/style: python/sort-imports python/format
 
 ## Check code style compliance
-python/check-style: check-sort-imports check-format
+python/check-style: python/check-sort-imports python/check-format
 
 ## Check type hint annotations
 python/check-types:
