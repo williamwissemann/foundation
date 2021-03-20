@@ -1,74 +1,29 @@
 #
-# Helpers - stuff that's shared between make files
-# Modified version of https://github.com/cloudposse/build-harness/blob/master/Makefile.helpers
+# INSPIRED BY https://github.com/cloudposse/build-harness
 #
 
-include $(MAKE_MODUALS)/*/Makefile*
+include $(MAKE_MODULES)/*/Makefile*
+
+PYTHON ?= python3.8
+export BACKHOE_PATH ?= ../backhoe/src/backhoe/app.py
+export MAKE_FILTER ?= .*
 
 MAKEFLAGS += --no-print-directory
-
-EDITOR ?= vim
-
-SHELL = /bin/bash
-SELF ?= $(MAKE) 
-
+export MAKE_MODULES_HELPER = $(MAKE_MODULES)/Makefile.helpers 
 .DEFAULT_GOAL := help/short
-HELP_FILTER ?= .*
-
-MAKE_MODUALS_PLUGIN = $(MAKE_MODUALS)/*/Makefile.*
-MAKE_MODUALS_HELPER = $(MAKE_MODUALS)/Makefile.helpers 
-
-green = $(shell echo -e '\x1b[32;01m$1\x1b[0m')
-yellow = $(shell echo -e '\x1b[33;01m$1\x1b[0m')
-red = $(shell echo -e '\x1b[33;31m$1\x1b[0m')
-
-# Ensures that a variable is defined and non-empty
-define assert-set
-  @$(if $($(1)),,$(error $(1) not defined in $(@)))
-endef
-
-# Ensures that a variable is undefined
-define assert-unset
-  @$(if $($1),$(error $(1) should not be defined in $(@)),)
-endef
-
-test/assert-set:
-	$(call assert-set,PATH)
-	@echo assert-set PASS
-
-test/assert-unset:
-	$(call assert-unset,JKAHSDKJAHSDJKHASKD)
-	@echo assert-unset PASS
-
-test/assert: test/assert-set test/assert-unset
-	@exit 0
 
 ## Help screen
 help:
-	@printf "\nAvailable targets:\n"
-	@$(SELF) -s help/generate | grep -E "\w($(HELP_FILTER))"
+	@$(MAKE) -s help/generate | grep -E "\w($(MAKE_FILTER))"
 
 ## Display help for all targets
 help/all:
-	@printf "\nAvailable targets:\n"
-	@$(SELF) -s help/generate
+	@$(MAKE) -s help/generate
 
 ## This help short screen
 help/short:
-	@printf "\nAvailable targets:\n"
-	@$(SELF) -s help/generate MAKEFILE_LIST="Makefile ${MAKE_MODUALS_HELPER}"
+	@$(MAKE) -s help/generate MAKEFILE_LIST="Makefile ${MAKE_MODULES_HELPER}"
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
-	@awk '/^[a-zA-Z\_0-9%:\\\/-]+:/ { \
-	  helpMessage = match(lastLine, /^## (.*)/); \
-	  if (helpMessage) { \
-	    helpCommand = $$1; \
-	    helpMessage = substr(lastLine, RSTART + 3, RLENGTH); \
-      gsub("\\\\", "", helpCommand); \
-      gsub(":+$$", "", helpCommand); \
-	    printf "  \x1b[32;01m%-35s\x1b[0m %s\n", helpCommand, helpMessage; \
-	  } \
-	} \
-	{ lastLine = $$0 }' $(MAKEFILE_LIST) | sort -u
-	@printf "\n"
+	$(PYTHON) ${BACKHOE_PATH} --make_list $(MAKEFILE_LIST)

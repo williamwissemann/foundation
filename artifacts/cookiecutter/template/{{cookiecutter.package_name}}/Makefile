@@ -3,11 +3,11 @@
 
 
 ARTIFACTS ?= ../../artifacts
-MAKE_MODUALS = ${ARTIFACTS}/makefile/modules
+MAKE_MODULES = ${ARTIFACTS}/makefile/modules
 
-HELP_FILTER = help|python|docker
+export HELP_FILTER = help|python|docker
 
-include $(MAKE_MODUALS)/Makefile.*
+include $(MAKE_MODULES)/Makefile.*
 
 PACKAGE={{cookiecutter.package_name}}
 TAG=dev
