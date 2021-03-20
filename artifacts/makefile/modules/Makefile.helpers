@@ -6,7 +6,7 @@ include $(MAKE_MODULES)/*/Makefile*
 
 PYTHON ?= python3.8
 export BACKHOE_PATH ?= ../backhoe/src/backhoe/app.py
-export MAKE_FILTER ?= .*
+export HELP_FILTER ?= .*
 
 MAKEFLAGS += --no-print-directory
 export MAKE_MODULES_HELPER = $(MAKE_MODULES)/Makefile.helpers 
@@ -14,7 +14,7 @@ export MAKE_MODULES_HELPER = $(MAKE_MODULES)/Makefile.helpers
 
 ## Help screen
 help:
-	@$(MAKE) -s help/generate | grep -E "\w($(MAKE_FILTER))"
+	@$(MAKE) -s help/generate | grep -E "\w($(HELP_FILTER))"
 
 ## Display help for all targets
 help/all:
