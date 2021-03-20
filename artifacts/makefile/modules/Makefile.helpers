@@ -14,16 +14,19 @@ export MAKE_MODULES_HELPER = $(MAKE_MODULES)/Makefile.helpers
 
 ## Help screen
 help:
+	@echo "\navailable commands:"
 	@$(MAKE) -s help/generate | grep -E "\w($(HELP_FILTER))"
 
 ## Display help for all targets
 help/all:
+	@echo "\navailable commands:"
 	@$(MAKE) -s help/generate
 
 ## This help short screen
 help/short:
+	@echo "\navailable commands:"
 	@$(MAKE) -s help/generate MAKEFILE_LIST="Makefile ${MAKE_MODULES_HELPER}"
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
-	$(PYTHON) ${BACKHOE_PATH} --make_list $(MAKEFILE_LIST)
+	@$(PYTHON) ${BACKHOE_PATH} --make_list ${MAKEFILE_LIST}

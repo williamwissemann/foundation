@@ -42,7 +42,6 @@ def parse_description(text):
 
 
 def pretty_print(items):
-    print("available commands:")
     for cmd in sorted(items):
         desc = items[cmd]
         while len(cmd) < 30:
