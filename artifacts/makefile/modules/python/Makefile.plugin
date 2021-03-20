@@ -102,7 +102,7 @@ python/check-lint:
 	@. venv/bin/activate; $(PYTHON) -m flake8 src/
 
 ## Check code style compliance
-python/check-static-analysis: check-lint check-types
+python/check-static-analysis: python/check-lint python/check-types
 
 ## Generate project documentation
 python/docs: python/coverage
