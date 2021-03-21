@@ -1,6 +1,6 @@
 # Foundation
 
-Foundation is utility wrapper to support building & maintaining small interdependent python projects while maintaining consistency across projects.
+Foundation is a utility wrapper to support building & maintaining small interdependent packages while maintaining consistency across each packages.
 
 > One key solution to managing complexity of large software is modular programming: the code is composed of many different code modules that are developed separately. - [Link](https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html)
 
