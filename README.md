@@ -57,7 +57,7 @@ available commands:
 
 * [ ] TODO: add more info (i.e version pining in comments)
 
-## WISHLIST
+## Wishlist
 
 * [ ] Add option to run tests for all projects in *./packages*
 * [ ] Add a make command the mimics a pipeline to the cookiecutter template
