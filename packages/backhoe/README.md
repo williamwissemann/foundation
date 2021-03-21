@@ -2,6 +2,6 @@
 
 ![coverage](coverage.svg)
 
-A description of the package.
+A utility package to support foundation's functionally.
 
 ## Quickstart

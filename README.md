@@ -1,6 +1,6 @@
 # Foundation
 
-Foundation is a utility wrapper to support building & maintaining small interdependent packages while maintaining consistency across each packages.
+Foundation is a utility wrapper to support building & maintaining small interdependent packages while maintaining consistency across each package.
 
 > One key solution to managing complexity of large software is modular programming: the code is composed of many different code modules that are developed separately. - [Link](https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html)
 
@@ -44,7 +44,7 @@ available commands:
 |NOTE: Don't use special characters (i.e `-`) in package names stick to (a-z and _). Using special characters can lead to a bunch of import issues and pain.
 |---|
 
-* [ ] TODO: Enforce package name `[a-zA-Z0-9\-]*`
+* [ ] TODO: Enforce package name to the regex `[a-zA-Z0-9\-]*`
 
 ### package version importing and management
 
@@ -60,6 +60,7 @@ available commands:
 ## WISHLIST
 
 * [ ] Add option to run tests for all projects in *./packages*
-* [ ] Add a make command the mimics a pipeline to the cookiecutter templete
+* [ ] Add a make command the mimics a pipeline to the cookiecutter template
 * [ ] Create a update package helper to resync with template
+* [ ] Create a docker workflow similar to record_keeper
 * [ ] Cleanup readme
