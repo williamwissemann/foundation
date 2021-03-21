@@ -1,0 +1,18 @@
+## create a virtual environment
+package/venv:
+	@$(PYTHON) -m venv venv
+	@/bin/bash -c "source venv/bin/activate && pip install pip --upgrade && pip install -r requirements.dev.txt"
+	@echo "\nEnter virtual environment using: \n\t$ source venv/bin/activate\n"
+
+## deletes the virtual environment
+package/venv_delete:
+	@rm -fr venv
+
+## create a new package via cookiecutter
+package/new: package/venv
+	@. venv/bin/activate; $(PYTHON) -m cookiecutter --output-dir ./packages ./artifacts/cookiecutter/template/ 
+	@echo "\nThe new package can be found in : \n\t$ ./packages"
+
+## [DANGEROUS] runs cookiecutter with --overwrite-if-exists
+package/reset: package/venv
+	@. venv/bin/activate; $(PYTHON) -m cookiecutter --overwrite-if-exists --output-dir ./packages ./artifacts/cookiecutter/template/ 

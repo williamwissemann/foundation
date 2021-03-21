@@ -1,6 +1,6 @@
-# Package Builder
+# Foundation
 
-Package Builder is utility to support building & maintaining small python projects.
+Foundation is utility wrapper to support building & maintaining small interdependent python projects while maintaining consistency across projects.
 
 > One key solution to managing complexity of large software is modular programming: the code is composed of many different code modules that are developed separately. - [Link](https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/modules/modular_programming.html)
 
@@ -12,10 +12,9 @@ Package Builder is utility to support building & maintaining small python projec
 
 ## Installation
 
-**requirments:**
+**requirements:**
 
 * make
-* sed
 * python3.8
 * virtualenv
 
@@ -25,57 +24,42 @@ TODO: add more info
 
 ```text
 > make help
-   _____        _____ _  __         _____ ______    
-  |  __ \ /\   / ____| |/ /   /\   / ____|  ____|
-  | |__) /  \ | |    | ' /   /  \ | |  __| |__
-  |  ___/ /\ \| |    |  <   / /\ \| | |_ |  __|
-  | |  / ____ | |____| . \ / ____ | |__| | |____    
- _|_|_/_/    \_\_____|_|\_/_/   _\_\_____|______|_
-|  \/  |   /\   | \ | |   /\   / ____|  ____|  __ \
-| \  / |  /  \  |  \| |  /  \ | |  __| |__  | |__) |
-| |\/| | / /\ \ | . ` | / /\ \| | |_ |  __| |  _  /
-| |  | |/ ____ \| |\  |/ ____ | |__| | |____| | \ \
-|_|  |_/_/    \_|_| \_/_/    \_\_____|______|_|  \_\
-                                                     
-help                           - display this makefile's help information
-
------ setup environment -----
-venv                           - create a virtual environment for development
-venv_setup                     - sets up a venv environment from scratch
-venv_delete                    - deletes the virtual environment for development
-
------ module management -----
-new                           - create a new module via cookiecutter
-reset                         - [DANGEROUS] runs cookiecutter with --overwrite-if-exists
+                                                
+available commands:
+  help                           Help screen                                                 
+  help/all                       Display help for all targets                                
+  help/short                     This help short screen                                      
+  package/new                    create a new package via cookiecutter                       
+  package/reset                  [DANGEROUS] runs cookiecutter with --overwrite-if-exists    
+  package/venv                   create a virtual environment                                
+  package/venv_delete            deletes the virtual environment   
 ```
 
 ### make venv
 
-TODO: add more info
+* [ ] TODO: add more info
 
 ### make new
 
-|NOTE: Don't use special characters (i.e `-`) in package names stick to (a-z and _). Using special charcaters can lead to a bunch of import issues and pain.
+|NOTE: Don't use special characters (i.e `-`) in package names stick to (a-z and _). Using special characters can lead to a bunch of import issues and pain.
 |---|
-TODO: add more info
 
-### package version importing and managment
+* [ ] TODO: Enforce package name `[a-zA-Z0-9\-]*`
 
-* requirments.local.txt
-* requirments.txt
+### package version importing and management
+
+* requirements.local.txt
+* requirements.txt
 * setup.py
 
 |NOTE: For local package resolution to work the folder name in *./packages* **has** to match the package name in setup.py in that folder.
 |---|
 
-TODO: add more info (i.e version pining in comments)
+* [ ] TODO: add more info (i.e version pining in comments)
 
-## TODO
+## WISHLIST
 
 * [ ] Add option to run tests for all projects in *./packages*
 * [ ] Add a make command the mimics a pipeline to the cookiecutter templete
-* [ ] Add a Dockerize step to makefile in cookiecutter templete
-* [ ] Create a update pacakge helper to resync with templete
-* [ ] cleanup readme
-* [ ] Dockerfile / running code in venv
-* [ ] vscode docker?? https://code.visualstudio.com/docs/containers/debug-common#_python
+* [ ] Create a update package helper to resync with template
+* [ ] Cleanup readme
