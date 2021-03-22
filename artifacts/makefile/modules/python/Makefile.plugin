@@ -19,26 +19,28 @@ python/clean:
 	@echo -e "\n[OPTIONAL] Use 'git clean -X -f -d' to remove them \n"
 
 # Creates a venv
-venv:
+python/create-venv:
+	$(call assert-set,'PYTHON')
 	@$(PYTHON) -m venv venv
 	@. venv/bin/activate; python -m pip install pip --upgrade
 
 ## Creates a virtual environment
-python/venv: venv
+python/venv: python/create-venv
 	@ if test -d venv; then echo make: \`venv\' is up to date.; else pass; fi
 
 ## Installs the python package into the venv
-python/install-package: python/venv pip-install-e
+python/install-package: python/venv python/pip-install-e
 	@echo -e ${VENV_TEXT}
 
-## Installs the python package into the venv + dev requirments
-python/install-dev: python/venv pip-install-dev pip-install-e
+## Installs the python package into the venv + dev requirements
+python/install-dev: python/venv python/pip-install-dev python/pip-install-e
 	@echo -e ${VENV_TEXT}
 
-pip-install-e:
+python/pip-install-e:
 	@. venv/bin/activate; python -m pip install -e .
 
-pip-install-dev:
+python/pip-install-dev:
+	$(call assert-set,'ARTIFACTS')
 	@. venv/bin/activate; python -m pip install -r ${ARTIFACTS}/python/requirements.shared.txt
 	@. venv/bin/activate; python -m pip install -r requirements.dev.txt
 
@@ -73,10 +75,12 @@ python/coverage:
 
 ## Perform code style format
 python/format:
+	$(call assert-set,'PACKAGE')
 	@. venv/bin/activate; black src/${PACKAGE} tests examples
 
 ## Check code format compliance
 python/check-format:
+	$(call assert-set,'PACKAGE')
 	@. venv/bin/activate; black --check src/${PACKAGE} tests examples
 
 ## Apply import sort ordering
@@ -106,6 +110,7 @@ python/check-static-analysis: python/check-lint python/check-types
 
 ## Generate project documentation
 python/docs: python/coverage
+	$(call assert-set,'PACKAGE')
 	@. venv/bin/activate; cd docs; rm -rf source/api/${PACKAGE}*.rst source/api/modules.rst build/*
 	@. venv/bin/activate; cd docs; make html
 
@@ -119,8 +124,10 @@ python/serve-docs:
 
 ## Create a wheel distribution package
 python/dist: python/venv
+	$(call assert-set,'PYTHON')
 	@. venv/bin/activate; ${PYTHON} setup.py bdist_wheel
 
 ## Upload a wheel distribution package
 python/dist-upload: python/venv
+	$(call assert-set,'PACKAGE')
 	@twine upload dist/${PACKAGE}-*-py3-none-any.whl

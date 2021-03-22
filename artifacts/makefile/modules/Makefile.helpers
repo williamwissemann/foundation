@@ -10,8 +10,19 @@ export BACKHOE_PATH ?= ../backhoe/src/backhoe/app.py
 export HELP_FILTER ?= .*
 
 MAKEFLAGS += --no-print-directory
-export MAKE_MODULES_HELPER = $(MAKE_MODULES)/Makefile.helpers 
+export MAKE_MODULES_HELPER = $(MAKE_MODULES)/Makefile.helpers
 .DEFAULT_GOAL := help/short
+
+# Ensures that a variable is defined and non-empty
+define assert-set
+	@if [ -n "$($(1))" ]; then :; else echo \`$(1)\' environment variable is not set.; exit 1; fi
+endef
+
+# Ensures that a variable is undefined
+define assert-unset
+	@if [ -n "$($(1))" ]; then echo \`${1}\' environment variable is should not be set.; exit 1; fi
+endef
+
 
 ## Help screen
 help:
@@ -25,9 +36,13 @@ help/all:
 
 ## This help short screen
 help/short:
+	$(call assert-set,MAKE_MODULES_HELPER)
 	@echo "\navailable commands:"
 	@$(MAKE) -s help/generate MAKEFILE_LIST="Makefile ${MAKE_MODULES_HELPER}"
 
 # Generate help output from MAKEFILE_LIST
 help/generate:
+	$(call assert-set,PYTHON)
+	$(call assert-set,BACKHOE_PATH)
+	$(call assert-set,MAKEFILE_LIST)
 	@$(PYTHON) ${BACKHOE_PATH} --make_list ${MAKEFILE_LIST}
