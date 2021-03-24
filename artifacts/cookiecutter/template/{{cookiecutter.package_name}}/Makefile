@@ -10,6 +10,7 @@ include $(MAKE_MODULES)/Makefile.*
 HELP_FILTER = docker/|help|python
 
 # python environment variable defaults
+PYTHON ?= python3.8
 PYTHON_PACKAGE = {{cookiecutter.package_name}}
 
 # docker environment variable defaults
