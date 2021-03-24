@@ -1,0 +1,47 @@
+## builds a docker image
+docker/build:
+	$(call artifact-required,Dockerfile)
+	$(call assert-set,DOCKER_IMAGE)
+	$(call assert-set,DOCKER_TAG)
+	@docker build --target final -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+	@docker system prune -f
+
+## builds a docker image from scratch
+docker/build-from-scratch:
+	$(call artifact-required,Dockerfile)
+	$(call assert-set,DOCKER_IMAGE)
+	$(call assert-set,DOCKER_TAG)
+	@docker build --no-cache --target final -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+	@docker system prune -f
+
+## launches the docker container
+docker/run:
+	$(call assert-set,DOCKER_IMAGE)
+	$(call assert-set,DOCKER_TAG)
+	@ docker run \
+		-v ${PWD}/config/:/app/config/ \
+		-v ${PWD}/database/:/app/database/ \
+		-it ${DOCKER_IMAGE}:${DOCKER_TAG}
+
+## launches the docker container on a custom entry point            
+docker/entrypoint:
+	$(call assert-set,DOCKER_ENTRYPOINT)
+	$(call assert-set,DOCKER_IMAGE)
+	$(call assert-set,DOCKER_TAG)
+	@ docker run \
+		--entrypoint ${DOCKER_ENTRYPOINT} \
+		-v ${PWD}/config/:/app/config/ \
+		-v ${PWD}/database/:/app/database/ \
+		-it ${DOCKER_IMAGE}:${DOCKER_TAG}
+
+## runs docker-compose up detached
+docker-compose/up:
+	$(call artifact-required,Dockerfile)
+	$(call artifact-required,docker-compose.yml)
+	@ docker-compose up -d
+
+## runs docker-compose down
+docker-compose/down:
+	$(call artifact-required,Dockerfile)	
+	$(call artifact-required,docker-compose.yml)
+	@ docker-compose down

@@ -7,7 +7,7 @@ MAKE_MODULES = ${ARTIFACTS}/makefile/modules
 include $(MAKE_MODULES)/Makefile.*
 
 # setup the scope of the make help
-HELP_FILTER ?= help|python|docker
+HELP_FILTER = docker/|help|python
 
 # python environment variable defaults
 PYTHON_PACKAGE = {{cookiecutter.package_name}}
