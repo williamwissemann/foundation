@@ -37,15 +37,18 @@ python/install-dev: python/venv python/pip-install-dev python/pip-install-e
 	@echo -e ${VENV_TEXT}
 
 python/pip-install-e:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; python -m pip install -e .
 
 python/pip-install-dev:
+	$(call artifact-required,venv)
 	$(call assert-set,ARTIFACTS)
 	@. venv/bin/activate; python -m pip install -r ${ARTIFACTS}/python/requirements.shared.txt
 	@. venv/bin/activate; python -m pip install -r requirements.dev.txt
 
 ## Run tests
 python/test: python/venv python/coverage
+	$(call artifact-required,venv)
 	@. venv/bin/activate; pytest \
 		--cov=src \
 		--cov-report html \
@@ -56,6 +59,7 @@ python/test: python/venv python/coverage
 
 ## Run tests [verbosely]
 python/test-verbose: python/venv python/coverage
+	$(call artifact-required,venv)
 	@. venv/bin/activate; pytest \
 		--cov=src \
 		--cov-report html \
@@ -67,6 +71,7 @@ python/test-verbose: python/venv python/coverage
 
 # Perform test coverage checks
 python/coverage:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; coverage erase
 	@. venv/bin/activate; PYTHONPATH=src coverage run -m unittest discover -s tests -v
 	@. venv/bin/activate; coverage html
@@ -75,20 +80,24 @@ python/coverage:
 
 ## Perform code style format
 python/format:
-	$(call assert-set,PACKAGE)
-	@. venv/bin/activate; black src/${PACKAGE} tests examples
+	$(call artifact-required,venv)
+	$(call assert-set,PYTHON_PACKAGE)
+	@. venv/bin/activate; black src/${PYTHON_PACKAGE} tests examples
 
 ## Check code format compliance
 python/check-format:
-	$(call assert-set,PACKAGE)
-	@. venv/bin/activate; black --check src/${PACKAGE} tests examples
+	$(call artifact-required,venv)
+	$(call assert-set,PYTHON_PACKAGE)
+	@. venv/bin/activate; black --check src/${PYTHON_PACKAGE} tests examples
 
 ## Apply import sort ordering
 python/sort-imports:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; isort . --profile black
 
 ## Check imports are sorted
 python/check-sort-imports:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; isort . --check-only --profile black
 
 ## Perform code style format
@@ -99,10 +108,12 @@ python/check-style: python/check-sort-imports python/check-format
 
 ## Check type hint annotations
 python/check-types:
-	@. venv/bin/activate; cd src; mypy -p ${PACKAGE} --ignore-missing-imports
+	$(call artifact-required,venv)
+	@. venv/bin/activate; cd src; mypy -p ${PYTHON_PACKAGE} --ignore-missing-imports
 
 ## Run static analysis checks
 python/check-lint:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; $(PYTHON) -m flake8 src/
 
 ## Check code style compliance
@@ -110,24 +121,29 @@ python/check-static-analysis: python/check-lint python/check-types
 
 ## Generate project documentation
 python/docs: python/coverage
-	$(call assert-set,PACKAGE)
-	@. venv/bin/activate; cd docs; rm -rf source/api/${PACKAGE}*.rst source/api/modules.rst build/*
+	$(call artifact-required,venv)
+	$(call assert-set,PYTHON_PACKAGE)
+	@. venv/bin/activate; cd docs; rm -rf source/api/${PYTHON_PACKAGE}*.rst source/api/modules.rst build/*
 	@. venv/bin/activate; cd docs; make html
 
 ## Quick check docs consistency
 python/check-docs:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; cd docs; make dummy
 
 ## Serve project html documentation
 python/serve-docs:
+	$(call artifact-required,venv)
 	@. venv/bin/activate; cd docs/build; python -m http.server --bind 127.0.0.1
 
 ## Create a wheel distribution package
 python/dist: python/venv
+	$(call artifact-required,venv)
 	$(call assert-set,PYTHON)
 	@. venv/bin/activate; ${PYTHON} setup.py bdist_wheel
 
 ## Upload a wheel distribution package
 python/dist-upload: python/venv
-	$(call assert-set,PACKAGE)
-	@twine upload dist/${PACKAGE}-*-py3-none-any.whl
+	$(call artifact-required,venv)
+	$(call assert-set,PYTHON_PACKAGE)
+	@twine upload dist/${PYTHON_PACKAGE}-*-py3-none-any.whl
