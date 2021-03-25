@@ -42,6 +42,6 @@ docker-compose/up:
 
 ## runs docker-compose down
 docker-compose/down:
-	$(call artifact-required,Dockerfile)	
+	$(call artifact-required,Dockerfile)
 	$(call artifact-required,docker-compose.yml)
 	@ docker-compose down
