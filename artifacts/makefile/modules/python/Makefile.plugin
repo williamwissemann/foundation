@@ -26,7 +26,7 @@ python/create-venv:
 
 ## Creates a virtual environment
 python/venv: python/create-venv
-	@ if test -d venv; then echo make: \`venv\' is up to date.; else pass; fi
+	@if test -d venv; then echo make: \`venv\' is up to date.; else pass; fi
 
 ## Installs the python package into the venv
 python/install-package: python/venv python/pip-install-e
@@ -42,6 +42,7 @@ python/pip-install-e:
 
 python/pip-install-dev:
 	$(call artifact-required,venv)
+	$(call artifact-required,requirements.dev.txt)
 	$(call assert-set,ARTIFACTS)
 	@. venv/bin/activate; python -m pip install -r ${ARTIFACTS}/python/requirements.shared.txt
 	@. venv/bin/activate; python -m pip install -r requirements.dev.txt

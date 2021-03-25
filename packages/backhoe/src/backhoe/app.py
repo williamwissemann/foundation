@@ -13,7 +13,16 @@ def main():
     for makefile in args.make_list[0]:
         available.update(parse_makefile(makefile))
 
-    pretty_print(available)
+    filter_help = {}
+    basic_help = {}
+    for item in available:
+        if "help" in item.split("/")[0].lower():
+            basic_help[item] = available[item]
+        else:
+            filter_help[item] = available[item]
+
+    pretty_print(basic_help)
+    pretty_print(filter_help)
 
 
 def parse_makefile(makefile):

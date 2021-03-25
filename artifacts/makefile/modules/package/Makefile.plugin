@@ -1,5 +1,7 @@
 ## create a virtual environment
 package/venv: python/venv 	
+	$(call artifact-required,requirements.txt)
+	@. venv/bin/activate; python -m pip install -r requirements.txt &> /dev/null
 
 ## deletes the virtual environment
 package/clean:

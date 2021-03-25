@@ -9,23 +9,6 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceRoot}/src/{{cookiecutter.package_name}}/app.py",
-        },
-        {
-            // docker-build and docker-run tasks in tasks.json.
-            // https://code.visualstudio.com/docs/containers/debug-common#_python 
-            "name": "Docker: Python - Django",
-            "type": "docker",
-            "request": "launch",
-            "preLaunchTask": "docker-run: debug",
-            "python": {
-            "pathMappings": [
-                {
-                "localRoot": "${workspaceFolder}",
-                "remoteRoot": "/app"
-                }
-            ],
-            "projectType": "django"
-            }
         }
     ]
 }
