@@ -14,5 +14,5 @@ PYTHON ?= python3.8
 PYTHON_PACKAGE = {{cookiecutter.package_name}}
 
 # docker environment variable defaults
-DOCKER_IMAGE ?= PYTHON_PACKAGE
+DOCKER_IMAGE ?= ${PYTHON_PACKAGE}
 DOCKER_TAG ?= dev
