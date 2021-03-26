@@ -1,9 +1,17 @@
+docker/build-artifact-image:
+	@ cd ../../ && docker build --no-cache -t foundation:artifact .
+
 ## builds a docker image
-docker/build:
+docker/build: docker/build-artifact-image
 	$(call artifact-required,Dockerfile)
 	$(call assert-set,DOCKER_IMAGE)
 	$(call assert-set,DOCKER_TAG)
-	@docker build --target final -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+	$(call assert-set,DOCKER_WORKDIR)
+	$(call assert-set,DOCKER_ENTRYPOINT)
+	@docker build --target final \
+		--build-arg DOCKER_WORKDIR=${DOCKER_WORKDIR} \
+	    --build-arg DOCKER_ENTRYPOINT=${DOCKER_ENTRYPOINT} \
+		-t ${DOCKER_IMAGE}:${DOCKER_TAG} .
 	@docker system prune -f
 
 ## builds a docker image from scratch
@@ -11,7 +19,12 @@ docker/build-from-scratch:
 	$(call artifact-required,Dockerfile)
 	$(call assert-set,DOCKER_IMAGE)
 	$(call assert-set,DOCKER_TAG)
-	@docker build --no-cache --target final -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+	$(call assert-set,DOCKER_WORKDIR)
+	$(call assert-set,DOCKER_ENTRYPOINT)
+	@docker build --no-cache --target final \
+		--build-arg DOCKER_WORKDIR=${DOCKER_WORKDIR} \
+	    --build-arg DOCKER_ENTRYPOINT=${DOCKER_ENTRYPOINT} \
+		-t ${DOCKER_IMAGE}:${DOCKER_TAG} .
 	@docker system prune -f
 
 ## launches the docker container

@@ -1,0 +1,6 @@
+!artifacts
+packages
+ToConvert
+.git
+build
+dist

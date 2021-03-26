@@ -15,7 +15,7 @@ python/clean:
 	@find . -type f -name '*.pyc' -delete
 	@find . -empty -type d -delete
 	@echo -e "\nClean up based on .gitignore rules:\n"
-	@git clean -X -f -d -n
+	@git clean -X -f -d -n || true
 	@echo -e "\n[OPTIONAL] Use 'git clean -X -f -d' to remove them \n"
 
 # Creates a venv
