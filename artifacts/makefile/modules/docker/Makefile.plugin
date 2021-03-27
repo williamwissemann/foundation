@@ -1,60 +1,67 @@
-docker/build-artifact-image:
-	@ cd ../../ && docker build --no-cache -t foundation:artifact .
+## Builds the base images containing Makefile artifacts
+docker/build-foundation:
+	@cd ../../ && docker build --target foundation -t foundation:artifacts .
+	@cd ../../ && docker build --target python -t foundation:python .
+	@cd ../../ && docker build --target venv -t foundation:venv .
 
-## builds a docker image
-docker/build: docker/build-artifact-image
+## Builds the a docker image containing the current python package
+docker/build: docker/build-foundation
 	$(call artifact-required,Dockerfile)
 	$(call assert-set,DOCKER_IMAGE)
 	$(call assert-set,DOCKER_TAG)
+	$(call assert-set,DOCKER_TARGET)
 	$(call assert-set,DOCKER_WORKDIR)
 	$(call assert-set,DOCKER_ENTRYPOINT)
-	@docker build --target final \
+	@docker build --target ${DOCKER_TARGET} \
 		--build-arg DOCKER_WORKDIR=${DOCKER_WORKDIR} \
-	    --build-arg DOCKER_ENTRYPOINT=${DOCKER_ENTRYPOINT} \
+		--build-arg DOCKER_ENTRYPOINT=${DOCKER_ENTRYPOINT} \
 		-t ${DOCKER_IMAGE}:${DOCKER_TAG} .
-	@docker system prune -f
-
-## builds a docker image from scratch
-docker/build-from-scratch:
+	@docker system prune -f &> /dev/null
+	
+## Builds without rebuilding base images (Skips docker/build-foundation)
+docker/build-fast: 
 	$(call artifact-required,Dockerfile)
 	$(call assert-set,DOCKER_IMAGE)
 	$(call assert-set,DOCKER_TAG)
+	$(call assert-set,DOCKER_TARGET)
 	$(call assert-set,DOCKER_WORKDIR)
 	$(call assert-set,DOCKER_ENTRYPOINT)
-	@docker build --no-cache --target final \
+	@docker build --target ${DOCKER_TARGET} \
 		--build-arg DOCKER_WORKDIR=${DOCKER_WORKDIR} \
-	    --build-arg DOCKER_ENTRYPOINT=${DOCKER_ENTRYPOINT} \
+		--build-arg DOCKER_ENTRYPOINT=${DOCKER_ENTRYPOINT} \
 		-t ${DOCKER_IMAGE}:${DOCKER_TAG} .
-	@docker system prune -f
+	@docker system prune -f &> /dev/null
 
 ## launches the docker container
-docker/run:
+docker/run: 
 	$(call assert-set,DOCKER_IMAGE)
 	$(call assert-set,DOCKER_TAG)
-	@ docker run \
-		-v ${PWD}/config/:/app/config/ \
-		-v ${PWD}/database/:/app/database/ \
-		-it ${DOCKER_IMAGE}:${DOCKER_TAG}
+	@docker run -it --rm \
+		${DOCKER_IMAGE}:${DOCKER_TAG}
 
 ## launches the docker container on a custom entry point            
 docker/entrypoint:
 	$(call assert-set,DOCKER_ENTRYPOINT)
 	$(call assert-set,DOCKER_IMAGE)
 	$(call assert-set,DOCKER_TAG)
-	@ docker run \
+	@docker run \
 		--entrypoint ${DOCKER_ENTRYPOINT} \
 		-v ${PWD}/config/:/app/config/ \
 		-v ${PWD}/database/:/app/database/ \
 		-it ${DOCKER_IMAGE}:${DOCKER_TAG}
 
+## docker prune
+docker/system-prune:
+	@docker system prune -f
+
 ## runs docker-compose up detached
 docker-compose/up:
 	$(call artifact-required,Dockerfile)
 	$(call artifact-required,docker-compose.yml)
-	@ docker-compose up -d
+	@docker-compose up -d
 
 ## runs docker-compose down
 docker-compose/down:
 	$(call artifact-required,Dockerfile)
 	$(call artifact-required,docker-compose.yml)
-	@ docker-compose down
+	@docker-compose down
