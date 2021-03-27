@@ -59,7 +59,7 @@ available commands:
   package/venv                   create a virtual environment                                   
 ```
 
-### Using & defining interdependent packages locally
+## Using & defining interdependent packages locally
 
 |NOTE: For local package resolution to work the folder name in *./packages* **has** to match the package name in setup.py in that folder.
 |---|
