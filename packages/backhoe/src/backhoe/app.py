@@ -9,6 +9,9 @@ def main():
     parser.add_argument("--make_list", nargs="*", action="append")
     args = parser.parse_args()
 
+    if not args.make_list:
+        print("Makefile missing")
+        return
     available = {}
     for makefile in args.make_list[0]:
         available.update(parse_makefile(makefile))
